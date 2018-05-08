@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zjbman.pedometer.activity.RegisterActivity">
+    tools:context="com.paper.order.activity.RegisterActivity">
 
 
     <!-- 引入toolbar-->
@@ -28,47 +28,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户名    : "
+            android:text="请输入旧密码: "
             android:textColor="#696969"
             android:textSize="17sp" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl_username__register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="支持中文或英文"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:textSize="16sp" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="密    码    : "
-            android:textColor="#696969"
-            android:textSize="17sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl_password__register"
+            android:id="@+id/tl_old"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
@@ -77,7 +42,7 @@
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入密码"
+                android:hint="请输入旧密码"
                 android:maxLength="25"
                 android:maxLines="1"
                 android:paddingLeft="10dp"
@@ -99,12 +64,48 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="再次输入: "
+            android:text="请输入新密码: "
             android:textColor="#696969"
             android:textSize="17sp" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl_password_again_register"
+            android:id="@+id/tl_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <EditText
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入新密码"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="再次输入        : "
+            android:textColor="#696969"
+            android:textSize="17sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tl_password_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
@@ -122,77 +123,9 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="邮    箱    : "
-            android:textColor="#696969"
-            android:textSize="17sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl_email_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="选填"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:textSize="16sp" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Q  Q号码 : "
-            android:textColor="#696969"
-            android:textSize="17sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl_qq_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="选填"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:textSize="16sp" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
@@ -201,7 +134,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_background"
         android:gravity="center"
-        android:text="注   册"
+        android:text="确   定"
         android:textColor="#fff"
         android:textSize="20sp" />
 

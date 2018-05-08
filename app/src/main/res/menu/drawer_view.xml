@@ -25,9 +25,9 @@
 
     <item android:title="其他">
         <menu>
-            <item
-                android:icon="@drawable/ic_we"
-                android:title="关于我们" />
+            <!--<item-->
+                <!--android:icon="@drawable/ic_we"-->
+                <!--android:title="关于我们" />-->
             <item
                 android:icon="@drawable/ic_setting"
                 android:title="退出登录" />

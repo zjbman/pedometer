@@ -16,7 +16,11 @@ import android.widget.TextView;
 
 import com.zjbman.pedometer.R;
 import com.zjbman.pedometer.activity.base.BaseActivity;
+import com.zjbman.pedometer.app.ActivityManager;
+import com.zjbman.pedometer.util.SharedpreferencesUtil;
 import com.zjbman.pedometer.util.ToastUtil;
+
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -87,7 +91,26 @@ public class MainActivity extends BaseActivity {
 //                item.setChecked(true);//设置选中状态
                 String title = item.getTitle().toString();
 
-                ToastUtil.show(MainActivity.this,title);
+                switch (title) {
+                    case "修改密码":
+                        startActivity(new Intent(MainActivity.this,ChangePassWordActivity.class));
+                        break;
+                    case "设置锻炼计划":
+                        startActivity(new Intent(MainActivity.this,PlanActivity.class));
+                        break;
+                    case "查看历史记录":
+                        startActivity(new Intent(MainActivity.this,RecordActivity.class));
+                        break;
+                    case "退出登录":
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                        SharedpreferencesUtil.getInstance().cacheUser(MainActivity.this,"","");
+                        ActivityManager.getInstance().removeActivity(MainActivity.this);
+                        break;
+                    default:
+                        break;
+                }
+
+                ToastUtil.show(MainActivity.this, title);
 
                 /* 关闭导航菜单*/
                 drawerLayout.closeDrawers();
@@ -101,16 +124,19 @@ public class MainActivity extends BaseActivity {
         ImageView iv_icon = headerView.findViewById(R.id.iv_icon);
         TextView tv_name = headerView.findViewById(R.id.tv_name);
 
+        Map<String, String> user = SharedpreferencesUtil.getInstance().getUser(this);
+        tv_name.setText(user.get("username"));
+
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.show(MainActivity.this,"点击了头像");
+                ToastUtil.show(MainActivity.this, "点击了头像");
             }
         });
         tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
 
@@ -120,9 +146,9 @@ public class MainActivity extends BaseActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_share:
-                        ToastUtil.show(MainActivity.this,"点击了share");
+                        ToastUtil.show(MainActivity.this, "点击了share");
                         break;
                 }
                 return true;
@@ -152,7 +178,7 @@ public class MainActivity extends BaseActivity {
     左边的点击事件通过下面的方式*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             /* 点击toolbar的左边图标 弹出侧滑菜单*/
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);

@@ -49,7 +49,7 @@ public class StartActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //动画结束，跳转到MainActivity
-                StartActivity.this.startActivity(new Intent(StartActivity.this,MainActivity.class));
+                StartActivity.this.startActivity(new Intent(StartActivity.this,LoginActivity.class));
                 ActivityManager.getInstance().removeActivity(StartActivity.this);
             }
 
