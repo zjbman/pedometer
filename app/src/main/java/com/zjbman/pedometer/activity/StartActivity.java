@@ -66,6 +66,6 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void onRelease() {
-        ActivityManager.getInstance().listActivity();
+//        ActivityManager.getInstance().listActivity();
     }
 }
