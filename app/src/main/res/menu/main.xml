@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_share"
         android:orderInCategory="90"
-        android:title="分享"
+        android:title=""
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -1,7 +1,10 @@
 package com.zjbman.pedometer.activity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -14,8 +17,12 @@ import android.widget.Button;
 import com.zjbman.pedometer.R;
 import com.zjbman.pedometer.activity.base.BaseActivity;
 import com.zjbman.pedometer.app.ActivityManager;
+import com.zjbman.pedometer.db.MySQLiteOpenHelper;
+import com.zjbman.pedometer.util.SharedpreferencesUtil;
 import com.zjbman.pedometer.util.StringUtil;
 import com.zjbman.pedometer.util.ToastUtil;
+
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -37,6 +44,9 @@ public class ChangePassWordActivity extends BaseActivity {
     private String newPassword;
     private String newPasswordAgain;
 
+    private String username;
+    private String password;
+
     @Override
     protected View setContentView() {
         return View.inflate(this, R.layout.activity_change_pass_word, null);
@@ -49,12 +59,15 @@ public class ChangePassWordActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
          /* 设定布局中的toolbar*/
         toolbar.setTitle("修改密码");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Map<String, String> user = SharedpreferencesUtil.getInstance().getUser(this);
+        username = user.get("username");
+        password = user.get("password");
     }
 
     @Override
@@ -88,8 +101,10 @@ public class ChangePassWordActivity extends BaseActivity {
             public void onClick(View view) {
                 if (check()) {
 
+                    updateDB();
 
                     /** 成功或失败都清空密码,避免用户连续点击注册按钮而一直请求服务器*/
+                    tl_old.getEditText().setText("");
                     tl_password.getEditText().setText("");
                     tl_password_again.getEditText().setText("");
                     tl_password_again.setHint("请跟上面输入的密码保持一致,必填");
@@ -97,6 +112,37 @@ public class ChangePassWordActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void updateDB() {
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(this);
+        SQLiteDatabase database = helper.getWritableDatabase();
+
+        boolean isPass = true;
+        Cursor cursor = database.query("user", null, "username=?", new String[]{username}, null, null, null);
+        while (cursor.moveToNext()) {
+            String pw = cursor.getString(cursor.getColumnIndex("password"));
+            if(!pw.equals(oldPassword)){
+                ToastUtil.show(this,"旧密码不正确！");
+                isPass = false;
+                break;
+            }
+        }
+        if(isPass) {
+            try {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("password", newPassword);
+                database.update("user", contentValues, "username=?", new String[]{username});
+
+                ToastUtil.show(this, "成功修改密码！");
+                SharedpreferencesUtil.getInstance().cacheUser(this,username,newPassword);
+//                startActivity(new Intent(this, MainActivity.class));
+                ActivityManager.getInstance().removeActivity(this);
+            } catch (Exception e) {
+                ToastUtil.show(this, "修改密码失败！");
+                e.printStackTrace();
+            }
+        }
     }
 
 

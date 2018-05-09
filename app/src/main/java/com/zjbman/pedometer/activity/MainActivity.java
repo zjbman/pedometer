@@ -18,7 +18,6 @@ import com.zjbman.pedometer.R;
 import com.zjbman.pedometer.activity.base.BaseActivity;
 import com.zjbman.pedometer.app.ActivityManager;
 import com.zjbman.pedometer.util.SharedpreferencesUtil;
-import com.zjbman.pedometer.util.ToastUtil;
 
 import java.util.Map;
 
@@ -110,7 +109,7 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
 
-                ToastUtil.show(MainActivity.this, title);
+//                ToastUtil.show(MainActivity.this, title);
 
                 /* 关闭导航菜单*/
                 drawerLayout.closeDrawers();
@@ -130,7 +129,7 @@ public class MainActivity extends BaseActivity {
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.show(MainActivity.this, "点击了头像");
+//                ToastUtil.show(MainActivity.this, "点击了头像");
             }
         });
         tv_name.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +147,7 @@ public class MainActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_share:
-                        ToastUtil.show(MainActivity.this, "点击了share");
+//                        ToastUtil.show(MainActivity.this, "点击了share");
                         break;
                 }
                 return true;
