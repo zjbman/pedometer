@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_dashboard"
+            android:title="修改密码" />
+
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_event"
+            android:title="设置锻炼计划" />
+
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_forum"
+            android:title="查看历史记录" />
+
+        <!--<item-->
+        <!--android:id="@+id/nav_discussion"-->
+        <!--android:icon="@drawable/ic_forum"-->
+        <!--android:title="消息" />-->
+
+    </group>
+
+    <item android:title="其他">
+        <menu>
+            <!--<item-->
+                <!--android:icon="@drawable/ic_we"-->
+                <!--android:title="关于我们" />-->
+            <item
+                android:icon="@drawable/ic_setting"
+                android:title="退出登录" />
+        </menu>
+    </item>
+</menu>

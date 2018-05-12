@@ -1,4 +1,4 @@
-package com.zjbman.pedometer.activity;
+package cn.bluemobi.dylan.pedometer.activity;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -13,17 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.zjbman.pedometer.R;
-import com.zjbman.pedometer.activity.base.BaseActivity;
-import com.zjbman.pedometer.app.ActivityManager;
-import com.zjbman.pedometer.db.MySQLiteOpenHelper;
-import com.zjbman.pedometer.util.SharedpreferencesUtil;
-import com.zjbman.pedometer.util.StringUtil;
-import com.zjbman.pedometer.util.ToastUtil;
-
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import cn.bluemobi.dylan.pedometer.R;
+import cn.bluemobi.dylan.pedometer.activity.base.BaseActivity;
+import cn.bluemobi.dylan.pedometer.app.ActivityManager;
+import cn.bluemobi.dylan.pedometer.step.bean.UserData;
+import cn.bluemobi.dylan.pedometer.step.utils.DbUtils;
+import cn.bluemobi.dylan.pedometer.util.SharedpreferencesUtil;
+import cn.bluemobi.dylan.pedometer.util.StringUtil;
+import cn.bluemobi.dylan.pedometer.util.ToastUtil;
 
 public class ChangePassWordActivity extends BaseActivity {
 
@@ -114,28 +115,33 @@ public class ChangePassWordActivity extends BaseActivity {
     }
 
     private void updateDB() {
-        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(this);
-        SQLiteDatabase database = helper.getWritableDatabase();
-
+        if(DbUtils.getLiteOrm()==null){
+            DbUtils.createDb(this, "user");
+        }
+        int id = 0;
         boolean isPass = true;
-        Cursor cursor = database.query("user", null, "username=?", new String[]{username}, null, null, null);
-        while (cursor.moveToNext()) {
-            String pw = cursor.getString(cursor.getColumnIndex("password"));
-            if(!pw.equals(oldPassword)){
-                ToastUtil.show(this,"旧密码不正确！");
-                isPass = false;
-                break;
+        List<UserData> userDataList = DbUtils.getQueryByWhere(UserData.class, "username", new String[]{this.username});
+        if(userDataList != null && userDataList.size() > 0){
+            for (UserData userData : userDataList){
+                id = userData.getId();
+                String pw = userData.getPassword();
+                if(!pw.equals(oldPassword)){
+                    ToastUtil.show(this,"旧密码不正确！");
+                    isPass = false;
+                    break;
+                }
             }
         }
         if(isPass) {
             try {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("password", newPassword);
-                database.update("user", contentValues, "username=?", new String[]{username});
+                UserData userData = new UserData();
+                userData.setId(id);
+                userData.setUsername(username);
+                userData.setPassword(newPassword);
+                DbUtils.update(userData);
 
                 ToastUtil.show(this, "成功修改密码！");
-                SharedpreferencesUtil.getInstance().cacheUser(this,username,newPassword);
-//                startActivity(new Intent(this, MainActivity.class));
+                SharedpreferencesUtil.getInstance().cacheUser(this, this.username,newPassword);
                 ActivityManager.getInstance().removeActivity(this);
             } catch (Exception e) {
                 ToastUtil.show(this, "修改密码失败！");

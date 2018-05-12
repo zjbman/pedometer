@@ -1,4 +1,4 @@
-package com.zjbman.pedometer.activity;
+package cn.bluemobi.dylan.pedometer.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,11 +7,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
-import com.zjbman.pedometer.R;
-import com.zjbman.pedometer.activity.base.BaseActivity;
-import com.zjbman.pedometer.app.ActivityManager;
 
 import butterknife.Bind;
+import cn.bluemobi.dylan.pedometer.R;
+import cn.bluemobi.dylan.pedometer.activity.base.BaseActivity;
+import cn.bluemobi.dylan.pedometer.app.ActivityManager;
 
 public class StartActivity extends BaseActivity {
 
@@ -49,8 +49,8 @@ public class StartActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //动画结束，跳转到MainActivity
-//                StartActivity.this.startActivity(new Intent(StartActivity.this,MainActivity.class));
                 StartActivity.this.startActivity(new Intent(StartActivity.this,LoginActivity.class));
+//                StartActivity.this.startActivity(new Intent(StartActivity.this,LoginActivity.class));
                 ActivityManager.getInstance().removeActivity(StartActivity.this);
             }
 

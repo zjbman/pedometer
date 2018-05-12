@@ -1,4 +1,4 @@
-package com.zjbman.pedometer.activity;
+package cn.bluemobi.dylan.pedometer.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,17 +11,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.zjbman.pedometer.R;
-import com.zjbman.pedometer.activity.base.BaseActivity;
-import com.zjbman.pedometer.app.ActivityManager;
-import com.zjbman.pedometer.db.MySQLiteOpenHelper;
-import com.zjbman.pedometer.util.SharedpreferencesUtil;
-import com.zjbman.pedometer.util.StringUtil;
-import com.zjbman.pedometer.util.ToastUtil;
 
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import cn.bluemobi.dylan.pedometer.R;
+import cn.bluemobi.dylan.pedometer.activity.base.BaseActivity;
+import cn.bluemobi.dylan.pedometer.app.ActivityManager;
+import cn.bluemobi.dylan.pedometer.step.bean.UserData;
+import cn.bluemobi.dylan.pedometer.step.utils.DbUtils;
+import cn.bluemobi.dylan.pedometer.util.SharedpreferencesUtil;
+import cn.bluemobi.dylan.pedometer.util.StringUtil;
+import cn.bluemobi.dylan.pedometer.util.ToastUtil;
 
 public class LoginActivity extends BaseActivity {
     @Bind(R.id.toolbar)
@@ -93,21 +95,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void queryDB() {
-        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(this);
-        SQLiteDatabase database = helper.getReadableDatabase();
-        Cursor cursor = database.query("user", null, null, null, null, null, null);
-
+        if(DbUtils.getLiteOrm()==null){
+            DbUtils.createDb(this, "user");
+        }
+        List<UserData> userDataList =DbUtils.getQueryAll(UserData.class);
         boolean isLogin = false;
-        //判断游标是否为空
-        if (cursor.moveToFirst()) {
-            //遍历游标
-            while (cursor.moveToNext()) {
-                //获得ID
-                int id = cursor.getInt(0);
-                //获得用户名
-                String username1 = cursor.getString(1);
-                //获得密码
-                String password1 = cursor.getString(2);
+        if(userDataList != null && userDataList.size() > 0) {
+            for (UserData userData : userDataList ) {
+                String username1 = userData.getUsername();
+                String password1 = userData.getPassword();
 
                 if (username.equals(username1)) {
                     if (password.equals(password1)) {
@@ -120,8 +116,6 @@ public class LoginActivity extends BaseActivity {
                     }
                 }
             }
-
-
             if (!isLogin) {
                 ToastUtil.show(this, "账号或密码不正确！");
             }

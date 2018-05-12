@@ -260,6 +260,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onRelease() {
-
+        if(conn != null){
+            unbindService(conn);
+        }
     }
 }

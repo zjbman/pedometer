@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 使用DrawerLayout来完成侧滑效果-->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context="cn.bluemobi.dylan.pedometer.activity.MainActivity">
+
+        <!-- 引入toolbar-->
+        <include layout="@layout/mytoolbar" />
+
+
+        <RelativeLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+            <!--android:background="@mipmap/step_bg"-->
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:drawableLeft="@mipmap/home_statistical"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="查看历史步数"
+                android:textColor="#333333" />
+
+            <cn.bluemobi.dylan.pedometer.view.StepArcView
+                android:id="@+id/cc"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/tv_data"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp" />
+
+            <TextView
+                android:id="@+id/tv_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/cc"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:drawableLeft="@mipmap/home_question_mark"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="设置锻炼计划"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/tv_isSupport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="该设备支持计步"
+                android:textColor="#333333" />
+
+            <ImageView
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="70dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bg_create_group" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nv_main_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/drawer_view" />
+
+
+</android.support.v4.widget.DrawerLayout>
